@@ -60,9 +60,9 @@
         <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
             <string>The app needs to access the microphone of your audio jack in order for the SumUp Card Reader to be detected correctly. Please confirm with OK as you cannot use your card reader otherwise.</string>
         </config-file>
-        <config-file target="*-Info.plist" parent="SUMUP_API_KEY">
+        <!-- <config-file target="*-Info.plist" parent="SUMUP_API_KEY">
             <string>$SUMUP_API_KEY</string>
-        </config-file>
+        </config-file> -->
         <source-file src="src/ios/SumUp.swift" />
         <preference name="SUMUP_API_KEY" />
         <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>

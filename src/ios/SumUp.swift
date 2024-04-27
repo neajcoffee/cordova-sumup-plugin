@@ -135,7 +135,7 @@ import SumUpSDK;
 
             if (affiliate_key as! String != "") {
 
-            SumUpSDK.setup(withAPIKey: affiliate_key);
+            SumUpSDK.setup(withAPIKey: affiliate_key as! String);
             let obj = createReturnObject(code: SUCCESS, message: "SumUp setup executed. See console.");
             returnCordovaPluginResult(status: CDVCommandStatus_OK, obj: obj, command: command);
                 // SumUpSDK.login(withToken: affiliate_key as! String){ (success: Bool, error: Error?) in
