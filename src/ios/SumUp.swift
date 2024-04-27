@@ -25,7 +25,7 @@ import SumUpSDK;
 
     @objc(login:)
     func login(command: CDVInvokedUrlCommand) {
-        let affiliate_key = getAffiliateKey(); print(affiliate_key);
+        // let affiliate_key = getAffiliateKey(); print(affiliate_key);
 
         if((command.arguments != nil) && command.arguments.count > 0) {
             let accessToken = command.arguments[0]; print(accessToken);
@@ -128,10 +128,29 @@ import SumUpSDK;
 
     @objc(setup:)
     func setup(command: CDVInvokedUrlCommand) {
-        let affiliate_key = getAffiliateKey();
-        SumUpSDK.setup(withAPIKey: affiliate_key);
-        let obj = createReturnObject(code: SUCCESS, message: "SumUp setup executed. See console.");
-        returnCordovaPluginResult(status: CDVCommandStatus_OK, obj: obj, command: command);
+        // let affiliate_key = getAffiliateKey();
+
+                if((command.arguments != nil) && command.arguments.count > 0) {
+            let affiliate_key = command.arguments[0]; print(affiliate_key);
+
+            if (affiliate_key as! String != "") {
+
+            SumUpSDK.setup(withAPIKey: affiliate_key);
+            let obj = createReturnObject(code: SUCCESS, message: "SumUp setup executed. See console.");
+            returnCordovaPluginResult(status: CDVCommandStatus_OK, obj: obj, command: command);
+                // SumUpSDK.login(withToken: affiliate_key as! String){ (success: Bool, error: Error?) in
+                //     if(success) {
+                //         let obj = self.createReturnObject(code: self.SUCCESS, message: "User sucessfully logged in");
+                //         self.returnCordovaPluginResult(status: CDVCommandStatus_OK, obj: obj, command: command);
+                //     }
+
+                //     guard error == nil else {
+                //         let obj = self.createReturnObject(code: self.LOGIN_ERROR, message: error!.localizedDescription);
+                //         self.returnCordovaPluginResult(status: CDVCommandStatus_ERROR, obj: obj, command: command);
+                //         return
+                //     }
+                }
+
     }
     
     @objc(test:)
@@ -216,9 +235,18 @@ import SumUpSDK;
     }
 
     // returns the affiliate key, which is provided in package.json
-    private func getAffiliateKey() -> String {
-        return (Bundle.main.infoDictionary?["SUMUP_API_KEY"] as? String)!;
+    // private func getAffiliateKey() -> String {
+    //     return (Bundle.main.infoDictionary?["SUMUP_API_KEY"] as? String)!;
+    // }
+
+        @objc(getAffiliateKey:)
+    func getAffiliateKey(command: CDVInvokedUrlCommand) {
+
+        if((command.arguments != nil) && command.arguments.count > 0) {
+            let affiliateKey = command.arguments[0]; print(affiliateKey);
+        }
     }
+        // let affiliate_key = getAffiliateKey(); print(affiliate_key);
 
     private func createPaymentReturnObject(result: CheckoutResult) -> [AnyHashable : Any] {
         let paymentResult: [AnyHashable : Any] = [

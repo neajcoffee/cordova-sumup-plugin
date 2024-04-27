@@ -25,8 +25,8 @@ module.exports = {
   prepare: (success, failure) => {
     cordova.exec(success, failure, CLASS, "prepare", []);
   },
-  setup: (success, failure) => {
-    cordova.exec(success, failure, CLASS, "setup", []);
+  setup: (sumUpKeys, success, failure) => {
+    cordova.exec(success, failure, CLASS, "setup", [sumUpKeys]);
   },
   test: (success, failure) => {
     cordova.exec(success, failure, CLASS, "test", []);
