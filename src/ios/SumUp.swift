@@ -152,6 +152,7 @@ import SumUpSDK;
                 }
 
     }
+    }
     
     @objc(test:)
     func test(command: CDVInvokedUrlCommand) {
