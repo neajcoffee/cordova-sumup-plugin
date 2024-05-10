@@ -4,19 +4,19 @@
         id="cordova-sumup-plugin"
         version="2.0.0">
     <name>SumUp</name>
-    <author>mariusbackes</author>
+    <author>neajblvck</author>
     <description>
         Cordova plugin for SumUp SDK integration
     </description>
     <license>MIT</license>
-    <repo>https://github.com/mariusbackes/cordova-plugin-sumup.git</repo>
-    <issue>https://github.com/mariusbackes/cordova-plugin-sumup/issues</issue>
+    <!-- <repo>https://github.com/mariusbackes/cordova-plugin-sumup.git</repo>
+    <issue>https://github.com/mariusbackes/cordova-plugin-sumup/issues</issue> -->
     <keywords>
         sumup, creditcard, debitcard, nfc, card, terminal, pay
     </keywords>
 
     <engines>
-        <engine name="cordova-android" version=">=6.3.0" />
+        <engine name="cordova" version=">=9.0.0" />
     </engines>
 
     <js-module src="www/sumup.js" name="SumUp">
@@ -25,22 +25,61 @@
 
     <!-- android -->
     <platform name="android">
-        <preference name="SUMUP_API_KEY" />
+
+<!-- a faire : recreer un fichier build.gradle avec les dependances nécessaires -->
+
+         <!-- SumUp SDK dependency -->
+         <!-- inutile, il faut ajouter manuellement implementation 'com.sumup:merchant-sdk:4.3.0' dans les dependances gralde.build du dossier capacitor-cordova-android-plugins -->
+        <!-- <framework src="com.sumup:merchant-sdk:4.3.0" type="gradleImplementation" />  -->
+        <!-- <framework src="com.sumup:merchant-sdk:4.3.0" custom="true" type="gradle" /> -->
+        <!-- Ajouter le dépôt Maven pour le SDK SumUp -->
+        <framework src="https://maven.sumup.com/releases" custom="true" type="maven" /> 
+
+        <!-- Configuration de l'application -->
+        <!-- <config-file target="AndroidManifest.xml" parent="/manifest">
+            <application android:name="com.neajblvck.cordova.sumup.SampleApplication" />
+        </config-file> -->
+
+        <!-- Déclaration de l'activité SumUp -->
+        <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.sumup.merchant.api.reader.SumUpAPI"
+                    android:configChanges="orientation|keyboardHidden|screenSize"/>
+        </config-file> -->
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="SumUp" >
-                <param name="android-package" value="de.mariusbackes.cordova.sumup.SumUp" />
+                <param name="android-package" value="com.neajblvck.cordova.sumup.SumUp" />
             </feature>
         </config-file>
-        <config-file target="./res/values/strings.xml" parent="/resources">
-            <string name="SUMUP_API_KEY">$SUMUP_API_KEY</string>
-        </config-file>
-        <source-file src="src/android/SumUp.java" target-dir="src/de/mariusbackes/cordova/sumup" />
+
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+
+        <!-- Android source files -->
+        <source-file src="src/android/SumUp.java" target-dir="src/com/neajblvck/cordova/sumup" />
+        <source-file src="src/android/SampleApplication.java" target-dir="src/com/neajblvck/cordova/sumup" />
+
+
+        <!-- Modify the AndroidManifest.xml -->
+        <!-- <config-file target="AndroidManifest.xml" parent="/*">
+            <application android:name="com.neajblvck.cordova.sumup.SampleApplication" />
+        </config-file> -->
+
+
+
+
+
+                <!-- Permissions -->
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
         </config-file>
-        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+        <!-- <framework src="src/android/build.gradle" custom="true" type="gradleReference" /> -->
+
+
     </platform>
 
     <!-- ios -->
@@ -68,4 +107,32 @@
         <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
         <framework src="SumUpSDK" type="podspec" spec="~> 4.1.1" />
     </platform>
+
+
 </plugin>
+
+
+        <!-- Modify the AndroidManifest.xml -->
+        <!-- <config-file target="AndroidManifest.xml" parent="/*">
+            <application android:name="com.neajblvck.cordova.sumup.SampleApplication" />
+        </config-file> -->
+
+            <!-- Modify AndroidManifest.xml to use SampleApplication -->
+    <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <application android:name="com.neajblvck.cordova.sumup.SampleApplication" />
+    </config-file> -->
+            <!-- <feature name="SumUp" >
+                <param name="android-package" value="de.mariusbackes.cordova.sumup.SumUp" />
+            </feature>
+        </config-file> -->
+
+
+        <!-- SumUp Activity Entries -->
+        <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.sumup.merchant.api.reader.SumUpAPI" android:configChanges="orientation|keyboardHidden|screenSize"/>
+        </config-file> -->
+
+            <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:name="com.sumup.merchant.reader.ui.Activities.CheckoutActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity> -->

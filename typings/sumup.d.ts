@@ -83,7 +83,8 @@ declare module "cordova-sumup-plugin" {
    * @export
    * @param {affiliateKey} [affiliateKey]
    */
-    export function setup(affiliateKey: affiliateKey): void;
+    export function setup(affiliateKey: string): void;
+
 
   /**
    * Test the SumUp integration using SDK tests.
